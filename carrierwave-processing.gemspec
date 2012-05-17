@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["fxposter@gmail.com"]
   gem.description   = %q{Additional processing support for MiniMagick and RMagick}
   gem.summary       = %q{Additional processing support for MiniMagick and RMagick}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/fxposter/carrierwave-processing"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
