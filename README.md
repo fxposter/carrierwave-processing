@@ -29,6 +29,7 @@ To use those, you should include specified module (RMagick or MiniMagick) into y
       process :resize_to_fill => [200, 200]
       process :quality => 90 # Set JPEG/MIFF/PNG compression level (0-100)
       process :convert => 'png'
+      process :colorspace => :rgb # Set colorspace to rgb or cmyk
 
       def filename
         super.chomp(File.extname(super)) + '.png'
