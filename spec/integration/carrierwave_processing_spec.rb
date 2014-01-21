@@ -3,7 +3,7 @@ require 'carrierwave-processing'
 
 require 'spec_helper'
 
-[CarrierWave::Processing::RMagick, CarrierWave::Processing::MiniMagick].each do |mod|
+(RUBY_PLATFORM == 'java' ? [CarrierWave::Processing::MiniMagick] : [CarrierWave::Processing::RMagick, CarrierWave::Processing::MiniMagick]).each do |mod|
   describe mod do
     let(:module_name) { subject.name.split('::').last }
 

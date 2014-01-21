@@ -19,5 +19,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'rspec', '~> 3.0.0.beta1'
   gem.add_development_dependency 'mini_magick'
-  gem.add_development_dependency 'rmagick'
+  gem.add_development_dependency 'rmagick' if RUBY_PLATFORM != 'java'
 end
