@@ -2,6 +2,9 @@ module CarrierWave
   module Processing
     module RMagick
       # Strips out all embedded information from the image
+      #
+      #   process :strip
+      #
       def strip
         manipulate! do |img|
           img.strip!
@@ -11,6 +14,9 @@ module CarrierWave
       end
 
       # Reduces the quality of the image to the percentage given
+      #
+      #   process :quality => 90
+      #
       def quality(percentage)
         manipulate! do |img|
           img.write(current_path){ self.quality = percentage }
@@ -20,10 +26,10 @@ module CarrierWave
       end
 
       # Sets the colorspace of the image to the specified value.
-      # 
-      #   process :rgb # force rgb
-      #   process :cmyk # force cmyk
-      # 
+      #
+      #   process :colorspace => :rgb # force rgb
+      #   process :colorspace => :cmyk # force cmyk
+      #
       def colorspace(cs)
         manipulate! do |img|
           case cs.to_sym
@@ -39,12 +45,12 @@ module CarrierWave
 
 
       # reduce image noise and reduce detail levels
-      # 
-      #   process :blur => [0,8]
       #
-      def blur(radius,sigma)
+      #   process :blur => [0, 8]
+      #
+      def blur(radius, sigma)
         manipulate! do |img|
-          img.blur(radius,sigma)
+          img = img.blur_image(radius, sigma)
           img = yield(img) if block_given?
           img
         end
