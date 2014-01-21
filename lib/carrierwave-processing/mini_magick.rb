@@ -20,17 +20,19 @@ module CarrierWave
       end
 
       # Sets the colorspace of the image to the specified value.
-      # 
+      #
       #   process :rgb # force rgb
       #   process :cmyk # force cmyk
-      # 
+      #
       def colorspace(cs)
         manipulate! do |img|
-          case cs.to_sym
-          when :rgb
-            img.colorspace = "RGBColorspace"
-          when :cmyk
-            img.colorspace = "CMYKColorspace"
+          img.combine_options do |c|
+            case cs.to_sym
+            when :rgb
+              c.colorspace "sRGB"
+            when :cmyk
+              c.colorspace "CMYK"
+            end
           end
           img = yield(img) if block_given?
           img

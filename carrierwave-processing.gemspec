@@ -16,4 +16,8 @@ Gem::Specification.new do |gem|
   gem.version       = CarrierWave::Processing::VERSION
 
   gem.add_dependency 'carrierwave'
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rspec', '~> 3.0.0.beta1'
+  gem.add_development_dependency 'mini_magick'
+  gem.add_development_dependency 'rmagick'
 end
