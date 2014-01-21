@@ -1,5 +1,7 @@
 # CarrierWave::Processing
 
+[![Travis CI](https://secure.travis-ci.org/fxposter/carrierwave-processing.png)](http://travis-ci.org/fxposter/carrierwave-processing)
+
 Additional processing support for MiniMagick and RMagick. These are processors that I've been using in multiple projects so I decided to extract those as a gem.
 
 ## Installation
