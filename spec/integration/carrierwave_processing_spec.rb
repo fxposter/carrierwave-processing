@@ -42,7 +42,7 @@ require 'spec_helper'
         process :colorspace => :cmyk
       }
 
-      expect(colorspace(fixture_path('little_foxes.jpg'))).to eq('sRGB')
+      expect(colorspace(fixture_path('little_foxes.jpg'))).to include('RGB')
 
       open_fixture 'little_foxes.jpg' do |file|
         uploader.store!(file)
@@ -62,7 +62,7 @@ require 'spec_helper'
         uploader.store!(file)
       end
 
-      expect(colorspace(uploader.store_path)).to eq('sRGB')
+      expect(colorspace(uploader.store_path)).to include('RGB')
     end
   end
 end
