@@ -32,6 +32,7 @@ To use those, you should include specified module (RMagick or MiniMagick) into y
       process :quality => 90 # Set JPEG/MIFF/PNG compression level (0-100)
       process :convert => 'png'
       process :colorspace => :rgb # Set colorspace to rgb or cmyk
+      process :blur => [0, 8] #reduce image noise and reduce detail levels [radius,sigma]
 
       def filename
         super.chomp(File.extname(super)) + '.png'

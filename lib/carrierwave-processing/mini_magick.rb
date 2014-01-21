@@ -39,6 +39,18 @@ module CarrierWave
         end
       end
 
+      # reduce image noise and reduce detail levels
+      # 
+      #   process :blur => [0,8]
+      #
+      def blur(radius,sigma)
+        manipulate! do |img|
+          img.blur "#{radius}x#{sigma}"
+          img = yield(img) if block_given?
+          img
+        end
+      end
+
     end
   end
 end
