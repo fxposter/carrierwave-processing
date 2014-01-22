@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-This gem add several useful methods to CarrierWave processing RMagick and MiniMagick modules: `quality` and `strip`.
+This gem add several useful methods to CarrierWave processing RMagick and MiniMagick modules: `quality`, `strip`, `blur` and `colorspace`.
 To use those, you should include specified module (RMagick or MiniMagick) into your uploader and use processors:
 
     class AvatarUploader < CarrierWave::Uploader::Base
