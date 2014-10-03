@@ -76,6 +76,22 @@ working_module_names.each do |module_name|
 
       expect(File.size(uploader.store_path)).to be < File.size(fixture_path('little_foxes.jpg'))
     end
+
+    it 'auto-orients the image' do
+      uploader = uploader_for(module_name) {
+        process :auto_orient
+      }
+
+      open_fixture 'weird_orientation.jpg' do |file|
+        uploader.store!(file)
+      end
+
+      modified_orientation = exif(uploader.store_path, 'Orientation')
+      original_orientation = exif(fixture_path('weird_orientation.jpg'), 'Orientation')
+
+      expect(modified_orientation).to eq('1')
+      expect(modified_orientation).not_to eq(original_orientation)
+    end
   end
 end
 
@@ -91,16 +107,19 @@ describe CarrierWave::Processing do
         process :quality => 90
         process :blur => [0, 2]
         process :colorspace => :cmyk
+        process :auto_orient
       }
     }
 
-    uploaders.each do |uploader|
-      open_fixture 'little_foxes.jpg' do |file|
-        uploader.store!(file)
+    ['little_foxes.jpg', 'weird_orientation.jpg'].each do |test_filename|
+      uploaders.each do |uploader|
+        open_fixture test_filename do |file|
+          uploader.store!(file)
+        end
       end
-    end
 
-    files = uploaders.map { |uploader| File.open(uploader.store_path, 'rb', &:read) }
-    expect(files).to be_all { |file| file == files[0] }
+      files = uploaders.map { |uploader| File.open(uploader.store_path, 'rb', &:read) }
+      expect(files).to be_all { |file| file == files[0] }
+    end
   end
 end
