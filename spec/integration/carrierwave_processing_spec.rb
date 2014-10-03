@@ -79,7 +79,7 @@ working_module_names.each do |module_name|
 
     it 'auto-orients the image' do
       uploader = uploader_for(module_name) {
-        process :auto_orient!
+        process :auto_orient
       }
 
       open_fixture 'weird_orientation.jpg' do |file|
@@ -107,16 +107,19 @@ describe CarrierWave::Processing do
         process :quality => 90
         process :blur => [0, 2]
         process :colorspace => :cmyk
+        process :auto_orient
       }
     }
 
-    uploaders.each do |uploader|
-      open_fixture 'little_foxes.jpg' do |file|
-        uploader.store!(file)
+    ['little_foxes.jpg', 'weird_orientation.jpg'].each do |test_filename|
+      uploaders.each do |uploader|
+        open_fixture test_filename do |file|
+          uploader.store!(file)
+        end
       end
-    end
 
-    files = uploaders.map { |uploader| File.open(uploader.store_path, 'rb', &:read) }
-    expect(files).to be_all { |file| file == files[0] }
+      files = uploaders.map { |uploader| File.open(uploader.store_path, 'rb', &:read) }
+      expect(files).to be_all { |file| file == files[0] }
+    end
   end
 end
