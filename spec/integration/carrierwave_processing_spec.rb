@@ -76,6 +76,22 @@ working_module_names.each do |module_name|
 
       expect(File.size(uploader.store_path)).to be < File.size(fixture_path('little_foxes.jpg'))
     end
+
+    it 'auto-orients the image' do
+      uploader = uploader_for(module_name) {
+        process :auto_orient!
+      }
+
+      open_fixture 'weird_orientation.jpg' do |file|
+        uploader.store!(file)
+      end
+
+      modified_orientation = exif(uploader.store_path, 'Orientation')
+      original_orientation = exif(fixture_path('weird_orientation.jpg'), 'Orientation')
+
+      expect(modified_orientation).to eq('1')
+      expect(modified_orientation).not_to eq(original_orientation)
+    end
   end
 end
 

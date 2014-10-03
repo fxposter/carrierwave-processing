@@ -57,6 +57,15 @@ module CarrierWave
         end
       end
 
+      # Auto-orients the image
+      #
+      #   process :auto_orient!
+      def auto_orient!
+        manipulate! do |img|
+          img.auto_orient
+          img
+        end
+      end
     end
   end
 end
