@@ -33,6 +33,7 @@ To use those, you should include specified module (RMagick or MiniMagick) into y
       process :convert => 'png'
       process :colorspace => :rgb # Set colorspace to rgb or cmyk
       process :blur => [0, 8] #reduce image noise and reduce detail levels [radius,sigma]
+      process :auto_orient # Rotate the image if it has orientation data
 
       def filename
         super.chomp(File.extname(super)) + '.png'
