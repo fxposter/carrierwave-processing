@@ -19,7 +19,9 @@ module CarrierWave
       #
       def quality(percentage)
         manipulate! do |img|
-          img.write(current_path){ self.quality = percentage }
+          if img.quality != percentage
+            img.write(current_path){ self.quality = percentage }
+          end
           img = yield(img) if block_given?
           img
         end
